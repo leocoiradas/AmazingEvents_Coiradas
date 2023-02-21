@@ -1,0 +1,67 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    background-color: black;
+}
+
+.nav-link{
+    color: red;
+    background-color: black;
+    padding: .5rem;
+    border-radius: 10%;
+    margin: 0 5px;
+    text-align: center;
+    gap: 1;
+}
+
+li>a[href="#"]{
+    background-color: white;
+}
+.footer{
+    min-height: 5vh;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 0, 0, 0.679);
+}
+
+.footer>div>i{
+    font-size: 1.75rem;
+    margin: .3rem;
+    color: white;
+    background-color: black;
+    padding: .1rem .65rem;
+    border-radius: 100%;
+}
+.footer>div>h4{
+    padding: .5rem;
+    font-size: 1.5rem;
+    font-family: 'Tahoma';
+    font-weight: bolder;
+    margin-bottom: 0;
+}
+.check>label{
+    margin: 0 1.5rem;
+    color:white;
+    font-size: 1rem;
+}
+.check>label>input[type="checkbox"]{
+    margin: 0 5px
+}
+.card>.card-body>h5{
+    text-align: center;
+    font-weight: bold;
+}
+.navbar-toggler, .navbar-toggler-icon{
+    background-color: rgb(216, 65, 65);
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
