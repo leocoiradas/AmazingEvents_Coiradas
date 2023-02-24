@@ -4,11 +4,6 @@
     box-sizing: border-box;
     font-family: sans-serif;
 }
-
-body{
-    background-color: black;
-}
-
 .nav-link{
     color: red;
     background-color: black;
@@ -18,9 +13,22 @@ body{
     text-align: center;
     gap: 1;
 }
-
+.nav-link:hover{
+    color:pink;
+}
 li>a[href="#"]{
     background-color: white;
+    color:black;
+}
+.nav2{
+    width: 100%;
+}
+.nav2>div{
+    height: 50px;
+}
+div>.icon>a, .nav2>div>h2{
+    font-size: 2rem;
+    color: black;
 }
 .footer{
     min-height: 5vh;
@@ -64,4 +72,49 @@ li>a[href="#"]{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.container>form>fieldset, .second{
+    border: 2px solid black;
+    width: 75%;
+}
+.container>form>fieldset>label{
+    font-family: 'Tahoma';
+    margin-bottom: 5px;
+}
+.container>form>fieldset>input[type="text"]{
+    width: 100%;
+    margin-bottom: 1rem; 
+    padding: .2rem;
+}
+.second{
+    border: none;
+}
+.second>input[type="submit"]{
+    padding: .5rem 1rem;
+}
+.container>table{
+    width: 100%;
+}
+.container>table, td, th{
+    border: 1px solid black;
+    text-align: center;
+    font-family: 'Tahoma';
+}
+td{
+    padding: 1rem;
+}
+.data, .details-card, .card_container{
+    border: 2px solid black;
+
+}
+.card_container{
+    width: 70vw;
+}
+.details-card{
+    width: 500px;
+    
+}
+.details-card>img{
+    object-fit: cover;
+    width: 100%
 }
