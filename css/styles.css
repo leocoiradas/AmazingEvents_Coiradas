@@ -81,7 +81,7 @@ div>.icon>a, .nav2>div>h2{
     font-family: 'Tahoma';
     margin-bottom: 5px;
 }
-.container>form>fieldset>input[type="text"]{
+.container>form>fieldset>input[type="text"], .container>form>fieldset>input[type="email"]{
     width: 100%;
     margin-bottom: 1rem; 
     padding: .2rem;
