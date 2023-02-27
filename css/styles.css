@@ -128,3 +128,6 @@ td{
 .card-body>ul>li{
     font-size: 1.25rem;
 }
+.table-container{
+    width: 100%;
+}
