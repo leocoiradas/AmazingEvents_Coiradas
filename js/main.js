@@ -12,7 +12,7 @@ for (i = 0; i < data.events.length; i++) {
                         <p class="card-text"><b>Capacity:</b> ${data.events[i].capacity}</p>
                         <p class="card-text"><b>Assistance:</b> ${data.events[i].assistance}</p>
                         <p class="card-text"><b>Price:</b> $${data.events[i].price}</p>
-                        <a href="./html/details.html" class="btn btn-primary">More Details</a>
+                        <a href="./html/details.html" class="btn btn-primary" target="_blank">More Details</a>
                     </div>
                 </div>`
 }

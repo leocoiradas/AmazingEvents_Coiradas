@@ -138,3 +138,6 @@ td{
 .card-description{
     font-size: 1rem;
 }
+main{
+    min-height: 85vh;
+}
