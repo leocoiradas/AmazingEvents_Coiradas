@@ -1,11 +1,13 @@
-const cards = document.getElementById("card_container");
+const cards = document.getElementById("cards_box");
 let tarjetas = '';
 let fechaActual = new Date(data.currentDate);
 for (i = 0; i < data.events.length; i++) {
     const fechaEvent = new Date(data.events[i].date);
     if(fechaEvent<fechaActual){
-        tarjetas += `<div class="card" style="width: 18rem;">
-                    <img src="${data.events[i].image}" class="card-img-top" alt="event_image" height="200px">
+        tarjetas += `<div class="card" style="width: 24rem;">
+                    <div class="image_container">
+                        <img src="${data.events[i].image}" class="card-img-top" alt="event_image">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">${data.events[i].name}</h5>
                         <p class="card-text mt-1">${data.events[i].date}</p>

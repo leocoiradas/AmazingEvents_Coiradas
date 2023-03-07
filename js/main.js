@@ -1,9 +1,7 @@
-const cards = document.getElementById("card_container");
+const cards = document.getElementById("cards_box");
 let tarjetas = '';
-//let fechaActual = new Date(data.currentDate);
-
 for (i = 0; i < data.events.length; i++) {
-    tarjetas += `<div class="card" style="width: 18rem;">
+    tarjetas += `<div class="card" style="width: 24rem;">
                     <img src="${data.events[i].image}" class="card-img-top" alt="event_image" height="200px">
                     <div class="card-body">
                         <h5 class="card-title">${data.events[i].name}</h5>
@@ -20,17 +18,3 @@ for (i = 0; i < data.events.length; i++) {
 }
 cards.innerHTML = tarjetas;
 
-/*<div class="card" style="width: 18rem;">
-  <img src="data.events[i].image" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">${data.events[i].name}</h5>
-    <p class="card-text">${data.events[i].date}</p>
-    <p class="card-text">${data.events[i].description}</p>
-    <p class="card-text">`Category: ${data.events[i].category}`</p>
-    <p class="card-text">`Place: ${data.events[i].place}`</p>
-    <p class="card-text">`Capacity: ${data.events[i].capacity}`</p>
-    <p class="card-text">`Assistance: ${data.events[i].assistance}`</p>
-    <p class="card-text">`Category: ${data.events[i].category}`</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>*/

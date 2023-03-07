@@ -1,4 +1,4 @@
-const cards = document.getElementById("card_container");
+const cards = document.getElementById("cards_box");
 let tarjetas = '';
 let fechaActual = new Date(data.currentDate);
 for (i = 0; i < data.events.length; i++) {
