@@ -15,6 +15,7 @@ for (i = 0; i < data.events.length; i++) {
                             <p class="card-text"><b>Category:</b> ${data.events[i].category}</p>
                             <p class="card-text"><b>Place:</b> ${data.events[i].place}</p>
                             <p class="card-text"><b>Capacity:</b> ${data.events[i].capacity}</p>
+                            <p class="card-text"><b>Estimate:</b> ${data.events[i].estimate}</p>
                             <p class="card-text"><b>Assistance:</b> ${data.events[i].assistance}</p>
                             <p class="card-text"><b>Price:</b> $${data.events[i].price}</p>
                             <a href="./details.html" class="btn btn-primary">More Details</a>
