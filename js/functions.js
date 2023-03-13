@@ -8,7 +8,7 @@ function pastDates(array){
 //Toma un arreglo y filtra los objetos pusheando en el array aquellos que no han sido realizados aún
 function futureDates(array){
     let futureEvents=[];
-    futureEvents.filter(event=> Date.parse(event.date) > Date.parse(array.currentDate));
+    futureEvents= array.filter(event=> Date.parse(event.date) > Date.parse(data.currentDate));
     return futureEvents;
 }
 
