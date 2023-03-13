@@ -1,6 +1,11 @@
+import {createCards} from "./functions.js";
+
 const cards = document.getElementById("cards_box");
-let tarjetas = '';
-for (i = 0; i < data.events.length; i++) {
+//let tarjetas = '';
+
+
+
+/*for (i = 0; i < data.events.length; i++) {
     tarjetas += `<div class="card m-2" style="width: 24rem;">
                     <div class="image_container">
                         <img src="${data.events[i].image}" class="card-img-top" alt="event_image">
@@ -19,5 +24,6 @@ for (i = 0; i < data.events.length; i++) {
                     </div>
                 </div>`
 }
-cards.innerHTML = tarjetas;
+cards.innerHTML = tarjetas;*/
 
+createCards(data.events, cards)

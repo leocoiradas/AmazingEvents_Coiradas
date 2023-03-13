@@ -1,5 +1,6 @@
+import{pastDates, createCards} from "./functions.js";
 const cards = document.getElementById("cards_box");
-let tarjetas = '';
+/*let tarjetas = '';
 let todayDate = new Date(data.currentDate);
 for (i = 0; i < data.events.length; i++) {
     const eventDate = new Date(data.events[i].date);
@@ -23,4 +24,6 @@ for (i = 0; i < data.events.length; i++) {
     }
     
 }
-cards.innerHTML = tarjetas;
+cards.innerHTML = tarjetas;*/
+createCards(pastDates(data.events), cards);
+console.log(pastDates(data.events));
