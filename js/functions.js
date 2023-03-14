@@ -42,7 +42,7 @@ function checkboxesCreation(array){
     let categories = '';
     categoryOfEvents.forEach(category=>{
         categories+= `
-                    <div class="form-check form-check-inline">
+                    <div class="form-check form-check-inline mx-2">
                         <input class="form-check-input" type="checkbox" id="${category}" value="${category}">
                         <label class="form-check-label" for="${category}">${category}</label>
                     </div>`
@@ -51,7 +51,33 @@ function checkboxesCreation(array){
 
 };
 
+//crea una card por cada evento existente y si la longitud del array es 0, se imprime un mensaje indicando que no se encontró lo buscado
+function cardsWithCheckbox(array){
+    if (array.length == 0){
+        filterAndSearch.innerHTML= `<h4 class="fw-light text-center mt-4">Sorry, we couldn't find what you're looking for. <i class="bi bi-emoji-frown-fill"></i></h4>`
+        return
+    }
+    let checkedCards = '';
+    array.forEach(activity =>{
+        checkedCards += `<div class="card m-2" style="width: 24rem;">
+        <div class="image_container">
+            <img src="${activity.image}" class="card-img-top" alt="event_image">
+            </div>
+            <div class="card-body">
+            <h5 class="card-title">${activity.name}</h5>
+            <p class="card-text my-2">${activity.date}</p>
+            <p class="card-text text-center card-description"><i>${activity.description}</i></p>
+            <a href="./details.html" class="btn btn-primary">More Details</a>
+        </div>
+    </div>`;
+    })
+    cards.innerHTML= checkedCards;
+}
 
-
+//es una función que filtra los elementos en un array en base al texto ingresado, el cual pregunta si ese texto forma parte del nombre de algún elemento en el array
+function filterByCategory (array, searchText){
+    let filteredSearch = array.filter(element=>{element.name.toLowerCase().includes(searchText.toLowerCase)});
+    return filteredSearch;
+}
 console.log(checkboxesCreation(data.events))
 export {pastDates, futureDates, createCards, checkboxesCreation};
