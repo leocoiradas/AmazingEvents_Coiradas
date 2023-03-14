@@ -1,6 +1,7 @@
-import {createCards} from "./functions.js";
+import {createCards, checkboxesCreation} from "./functions.js";
 
 const cards = document.getElementById("cards_box");
+const filterAndSearch = document.getElementById("filterAndSearch");
 //let tarjetas = '';
 
 
@@ -27,3 +28,5 @@ const cards = document.getElementById("cards_box");
 cards.innerHTML = tarjetas;*/
 
 createCards(data.events, cards)
+
+checkboxesCreation(data.events);

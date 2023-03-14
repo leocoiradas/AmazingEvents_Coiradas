@@ -12,11 +12,10 @@ function futureDates(array){
     return futureEvents;
 }
 
-//Toma un arreglo que por medio del foreach, crea una card por cada elemento del array
+//Toma un arreglo que por medio del for, crea una card por cada elemento del array
 function createCards (arr, container){
     let fragment = document.createDocumentFragment();
     for(let i=0; i<arr.length; i++) {
-        console.log(arr[i]);
         let cardBox = document.createElement("div");
         cardBox.innerHTML = `<div class="card m-2" style="width: 24rem;">
         <div class="image_container">
@@ -32,6 +31,27 @@ function createCards (arr, container){
         fragment.appendChild(cardBox);
     };
     container.appendChild(fragment);
-}
+};
 
-export {pastDates, futureDates, createCards};
+//Toma un array el cual copia en un array las categorias de los elementos mediante el map, luego se utiliza el método Set para eliminar 
+//los duplicados en caso de que los haya, y se generan los checkboxes con las categorías correspondientes a los objetos del arreglo original
+function checkboxesCreation(array){
+    let eventCategories = array.map(card=> card.category);
+    //console.log(eventCategories);
+    let categoryOfEvents = Array.from(new Set(eventCategories));
+    let categories = '';
+    categoryOfEvents.forEach(category=>{
+        categories+= `
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="${category}" value="${category}">
+                        <label class="form-check-label" for="${category}">${category}</label>
+                    </div>`
+    })
+    filterAndSearch.innerHTML=categories;
+
+};
+
+
+
+console.log(checkboxesCreation(data.events))
+export {pastDates, futureDates, createCards, checkboxesCreation};
