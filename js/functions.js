@@ -42,7 +42,6 @@ function createEventCards(array, container){
             <h5 class="card-title">${activity.name}</h5>
             <p class="card-text my-2">${activity.date}</p>
             <p class="card-text text-center card-description"><i>${activity.description}</i></p>
-            <p class="card-text my-2">${activity.category}</p>
             <a href="./details.html" class="btn btn-primary">More Details</a>
         </div>
     </div>`;
