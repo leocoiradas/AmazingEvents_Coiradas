@@ -1,7 +1,14 @@
-import {createCards, checkboxesCreation} from "./functions.js";
+import {checkboxesCreation, executeFilters} from "./functions.js";
 
-const cards = document.getElementById("cards_box");
-const filterAndSearch = document.getElementById("filterAndSearch");
+//const cardsContainer = document.getElementById("cards_box");
+//const search= document.getElementById('search');
+//const checksContainer = document.getElementById('checksContainer');
+
+checkboxesCreation(data.events, checksContainer);
+search.addEventListener('input', executeFilters)
+checksContainer.addEventListener('change', executeFilters)
+executeFilters(data.events);
+
 //let tarjetas = '';
 
 
@@ -26,7 +33,3 @@ const filterAndSearch = document.getElementById("filterAndSearch");
                 </div>`
 }
 cards.innerHTML = tarjetas;*/
-
-createCards(data.events, cards)
-
-checkboxesCreation(data.events);
