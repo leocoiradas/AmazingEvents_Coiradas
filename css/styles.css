@@ -141,3 +141,6 @@ td{
 main{
     min-height: 85vh;
 }
+.details-card>ul{
+    list-style-type: none;
+}

@@ -42,17 +42,17 @@ function createEventCards(array, container){
             <h5 class="card-title">${activity.name}</h5>
             <p class="card-text my-2">${activity.date}</p>
             <p class="card-text text-center card-description"><i>${activity.description}</i></p>
-            <a href="./details.html" class="btn btn-primary">More Details</a>
+            <a href="../html/details.html?id=${activity._id}" class="btn btn-primary">More Details</a>
         </div>
     </div>`;
     })
     container.innerHTML= checkedCards;
 }
 //es una función que filtra los elementos en un array en base al texto ingresado, el cual pregunta si ese texto forma parte del nombre de algún elemento en el array
-function filterByName(arr ,text){
-    console.log(arr);
+function filterByName(array ,text){
+    console.log(array);
     console.log(text);
-    let categoriesFiltered = arr.filter(elemento=>elemento.name.toLowerCase().includes(text.toLowerCase()));
+    let categoriesFiltered = array.filter(elemento=>elemento.name.toLowerCase().includes(text.toLowerCase()));
     console.log(categoriesFiltered)
     return categoriesFiltered;
 };
@@ -67,11 +67,25 @@ function categoryFilter(array){
     }
     return array;
 }
-function executeFilters(array){
+function executeFilters(){
     let cardsContainer = document.getElementById('cards_box');
     let search= document.getElementById('search');
-    let firstStep= filterByName(array, search.value);
+    let firstStep= filterByName(data.events, search.value);
     let secondStep= categoryFilter(firstStep);
     createEventCards(secondStep, cardsContainer);
 }
-export {pastDates, futureDates,checkboxesCreation ,categoryFilter,filterByName, createEventCards, executeFilters};
+function executeFiltersPast(){
+    let cardsContainer = document.getElementById('cards_box');
+    let search= document.getElementById('search');
+    let firstStep= filterByName(pastDates(data.events), search.value);
+    let secondStep= categoryFilter(firstStep);
+    createEventCards(secondStep, cardsContainer);
+}
+function executeFiltersFuture(){
+    let cardsContainer = document.getElementById('cards_box');
+    let search= document.getElementById('search');
+    let firstStep= filterByName(futureDates(data.events), search.value);
+    let secondStep= categoryFilter(firstStep);
+    createEventCards(secondStep, cardsContainer);
+}
+export {pastDates, futureDates,checkboxesCreation ,categoryFilter,filterByName, createEventCards, executeFilters, executeFiltersPast, executeFiltersFuture};
