@@ -3,13 +3,15 @@ const params= new URLSearchParams(queryString);
 const id= params.get('id');
 const detailsCard= data.events.find(card=> card._id == id);
 const detailsCardContainer= document.querySelector(".detailsCard");
+//La siguiente función se utiliza para alternar en las tarjetas que tengan las propiedades assistance o estimate
+//Recibe un elemento y pregunta si su propiedad es de tipo y valor undefined, caso positivo imprime un string y la propiedad Estimate. caso contrario hace lo mismo pero con assistance
 function assistanceOrEstimate(element){
     if (element.assistance === undefined){
         return '<b>Estimate: </b>'+element.estimate;
     }else{
         return '<b>Assistance: </b>'+element.assistance;
     }
-}
+};
 detailsCardContainer.innerHTML = `
             <div class="container-fluid d-flex flex-wrap p-3 m-5 card_container">
                 <div class="details-card gap-1 m-2">
@@ -27,5 +29,5 @@ detailsCardContainer.innerHTML = `
                         <p class="card-text my-2"><b>Price: </b>$${detailsCard.price}</p>
                         </div>
                 </div>
-            </div>`
+            </div>`;
             

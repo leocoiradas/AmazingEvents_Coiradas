@@ -1,11 +1,11 @@
 //Toma un arreglo el cual filtra los elementos en base a si su fecha de realización es menor que la fecha actual 
-function pastDates(array){
+function previousEvents(array){
     let pastEvents = [];
     pastEvents = array.filter(event=>Date.parse(event.date) < Date.parse(data.currentDate));
     return pastEvents;
 }
 //Toma un arreglo y filtra los objetos pusheando en el array aquellos que no han sido realizados aún
-function futureDates(array){
+function upcomingEvents(array){
     let futureEvents=[];
     futureEvents= array.filter(event=> Date.parse(event.date) > Date.parse(data.currentDate));
     return futureEvents;
@@ -48,12 +48,9 @@ function createEventCards(array, container){
     })
     container.innerHTML= checkedCards;
 }
-//es una función que filtra los elementos en un array en base al texto ingresado, el cual pregunta si ese texto forma parte del nombre de algún elemento en el array
+//Funcion utilizada para filtrar por texto en la barra de busqueda y para que muestre aquellas tarjetas cuyo nombre coincida con los caracteres ingresados en el input
 function filterByName(array ,text){
-    console.log(array);
-    console.log(text);
     let categoriesFiltered = array.filter(elemento=>elemento.name.toLowerCase().includes(text.toLowerCase()));
-    console.log(categoriesFiltered)
     return categoriesFiltered;
 };
 function categoryFilter(array){
@@ -67,6 +64,8 @@ function categoryFilter(array){
     }
     return array;
 }
+//Las siguientes funciones sirven para aplicar todos los filtros a la vez
+//Nota: se crearon multiples funciones similares debido a que cuando se pasa un array como parametro a executeFilters el filtro falla en la linea 64, dejando el array.filter como una función inexistente
 function executeFilters(){
     let cardsContainer = document.getElementById('cards_box');
     let search= document.getElementById('search');
@@ -77,15 +76,15 @@ function executeFilters(){
 function executeFiltersPast(){
     let cardsContainer = document.getElementById('cards_box');
     let search= document.getElementById('search');
-    let firstStep= filterByName(pastDates(data.events), search.value);
+    let firstStep= filterByName(previousEvents(data.events), search.value);
     let secondStep= categoryFilter(firstStep);
     createEventCards(secondStep, cardsContainer);
 }
 function executeFiltersFuture(){
     let cardsContainer = document.getElementById('cards_box');
     let search= document.getElementById('search');
-    let firstStep= filterByName(futureDates(data.events), search.value);
+    let firstStep= filterByName(upcomingEvents(data.events), search.value);
     let secondStep= categoryFilter(firstStep);
     createEventCards(secondStep, cardsContainer);
 }
-export {pastDates, futureDates,checkboxesCreation ,categoryFilter,filterByName, createEventCards, executeFilters, executeFiltersPast, executeFiltersFuture};
+export {previousEvents, upcomingEvents,checkboxesCreation, executeFilters, executeFiltersPast, executeFiltersFuture};
