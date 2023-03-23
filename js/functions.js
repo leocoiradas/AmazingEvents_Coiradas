@@ -87,4 +87,6 @@ function executeFiltersFuture(){
     let secondStep= categoryFilter(firstStep);
     createEventCards(secondStep, cardsContainer);
 }
+//
+
 export {previousEvents, upcomingEvents,checkboxesCreation, executeFilters, executeFiltersPast, executeFiltersFuture};
