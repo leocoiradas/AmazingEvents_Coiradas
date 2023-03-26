@@ -1,30 +1,31 @@
 //import { previousEvents } from "../js/functions.js";
-const allData = document.querySelector('#tbody1');
-const pastData = document.querySelector('.table2')
+const allData = document.querySelector('.table1');
+const pastData = document.querySelector('.table3')
+const upcomingData = document.querySelector('.table2')
 async function obtainData() {
     await fetch("../data/amazing.json")
         .then(response => response.json())
         .then(data => {
             eventList = data.events
             currentDate = data.currentDate
-            //console.log(data.events);
-            //console.log(biggestCapacity(data.events));
-            // console.log(biggestAssistance(data.events));
-            //console.log(lowestAssistance(data.events));
-            // console.log(categories(data.events));
-
-            //console.log(pastEventsData(previousEvents(data.events)));
-            //console.log(data);
-            //console.log(previousEvents(data.events));
-            insertDataOfPastEvents(pastEventsData(previousEvents(data.events)), pastData)
-            drawTableOfAllEvents(allData)
-            //console.log((previousEvents(data.events)));
+            //insertDataOfPastEvents(pastEventsData(previousEvents(data.events)), pastData)
+            //drawTableOfAllEvents(allData)
+            //console.log(upcomingEventsData(upcomingEvents(eventList)));
+            //console.log(upcomingEvents(eventList));
+            drawStats(eventList, allData, pastData, upcomingData)
 
         }).catch(error => console.log(error));
 };
 obtainData();
+function drawStats(array, container1, container2, container3) {
+    drawTableOfAllEvents(container1)
+    pastEventsStats(array, container2)
+    futureEventsStats(array, container3)
+}
+
 //El siguiente par de funciones toma un array como parametro y por el metodo reduce va recorriendo los elementos del array comparando si la asistencia es mayor o menor al anterior.
 //Devuelve el nombre del evento con la mayor asistencia
+
 function biggestAssistance(array) {
     let moreAssistance = ''
     let arrAuxi = []
@@ -37,13 +38,10 @@ function biggestAssistance(array) {
             arrAssistance.push(element)
         }
     });
-    console.log(arrEstimate);
-    console.log(arrAssistance);
-    let assistanceAuxi = arrAssistance.reduce((a, b) => (a.assistance * a.capacity) / 100 < (b.assistance * b.capacity) / 100 ? a : b)
-    let estimateAuxi = arrEstimate.reduce((a, b) => (a.estimate * a.capacity) / 100 < (b.estimate * b.capacity) / 100 ? a : b)
+    let assistanceAuxi = arrAssistance.reduce((a, b) => (a.assistance * a.capacity) / 100 > (b.assistance * b.capacity) / 100 ? a : b)
+    let estimateAuxi = arrEstimate.reduce((a, b) => (a.estimate * a.capacity) / 100 > (b.estimate * b.capacity) / 100 ? a : b)
     arrAuxi.push(assistanceAuxi, estimateAuxi)
-    console.log(arrAuxi);
-    moreAssistance = arrAuxi.reduce((a, b) => (a.assistance * a.capacity) / 100 < (b.estimate * b.capacity) / 100 ? a : b).name
+    moreAssistance = arrAuxi.reduce((a, b) => (a.assistance * a.capacity) / 100 > (b.estimate * b.capacity) / 100 ? a : b).name
     return moreAssistance;
 };
 //Devuelve el nombre del evento con la menor asistencia
@@ -70,27 +68,44 @@ function biggestCapacity(arr) {
     let eventCapacity = arr.reduce((a, b) => a.capacity > b.capacity ? a : b).name;
     return eventCapacity;
 }
-
 function drawTableOfAllEvents(container) {
     let allEventsArray = []
     let lowestAssistanceEvent = lowestAssistance(eventList)
     let eventWithMoreAttendance = biggestAssistance(eventList)
     let eventWithMoreCapacity = biggestCapacity(eventList)
-    allEventsArray.push(lowestAssistanceEvent, eventWithMoreAttendance, eventWithMoreCapacity)
+    allEventsArray.push(eventWithMoreAttendance, lowestAssistanceEvent, eventWithMoreCapacity)
     let tr = document.createElement('tr')
     allEventsArray.forEach(element => {
         let td = document.createElement('td')
         td.innerText = element
         tr.appendChild(td)
-        container.appendChild(tr)
     })
-
-
+    container.appendChild(tr)
 }
 //A continuación se muestran las funciones para la tabla de eventos futuros
-
-
-
+function upcomingEvents(array) {
+    let futureEvents = [];
+    futureEvents = array.filter(event => Date.parse(event.date) > Date.parse(currentDate));
+    return futureEvents;
+}
+function createFutureData(array){
+    let categoriesAuxi = upcomingEvents(array)
+    console.log(categoriesAuxi);
+    let categoriesOfEvents = categories(categoriesAuxi)
+    let reveniewArray = []
+    for (let i = 0; i < categoriesOfEvents.length; i++) {
+        let collectionOfCategory = []
+        let eventData = {}
+        collectionOfCategory = array.filter(element => element.category == categoriesOfEvents[i])
+        eventData.category = categoriesOfEvents[i]
+        eventData.revenue = collectionOfCategory.reduce((a, b) => a + (b.price * b.estimate), 0)
+        let totalAssistance = collectionOfCategory.reduce((a, b) => a + b.estimate, 0)
+        let totalCapacity = collectionOfCategory.reduce((a, b) => a + b.capacity, 0)
+        eventData.percentage = Math.round((totalAssistance / totalCapacity) * 100) + '%'
+        reveniewArray.push(eventData)
+    }
+    return reveniewArray
+}
 //A continuación se muestran las funciones para la tabla de eventos pasados
 //Nota: para los eventos pasados, crear 3 funciones:
 // 1 que me retorne un array con las categorias
@@ -101,40 +116,30 @@ function categories(array) {
     let arrayCategories = Array.from(new Set(arrCategories))
     return arrayCategories
 }
-
 function previousEvents(array) {
     let pastEvents = [];
     pastEvents = array.filter(event => Date.parse(event.date) < Date.parse(currentDate));
     return pastEvents;
 }
-
-
-function pastEventsData(array) {
+//Nota: editar la siguiente funcion, agregarle un condicional para que funcione para eventos pasados y futuros: si es assistance, se ejecuta lo actual, si es estimate, ejecutar otras funciones con estimate
+function createPastData(array) {
     let categoriesAuxi = previousEvents(array)
-    //console.log(categoriesAuxi);
-    let categoriesOfPastEvents = categories(categoriesAuxi)
-    //console.log(categoriesOfPastEvents);
+    let categoriesOfEvents = categories(categoriesAuxi)
     let reveniewArray = []
-    for (let i = 0; i < categoriesOfPastEvents.length; i++) {
+    for (let i = 0; i < categoriesOfEvents.length; i++) {
         let collectionOfCategory = []
         let eventData = {}
-        collectionOfCategory = array.filter(element => element.category == categoriesOfPastEvents[i])
-        //console.log(collectionOfCategory);
-        eventData.category = categoriesOfPastEvents[i]
+        collectionOfCategory = array.filter(element => element.category == categoriesOfEvents[i])
+        eventData.category = categoriesOfEvents[i]
         eventData.revenue = collectionOfCategory.reduce((a, b) => a + (b.price * b.assistance), 0)
-        //console.log(eventData.revenue);
         let totalAssistance = collectionOfCategory.reduce((a, b) => a + b.assistance, 0)
         let totalCapacity = collectionOfCategory.reduce((a, b) => a + b.capacity, 0)
         eventData.percentage = Math.round((totalAssistance / totalCapacity) * 100) + '%'
         reveniewArray.push(eventData)
-
     }
-    //console.log(reveniewArray);
-    return reveniewArray
+return reveniewArray
 }
-
-
-function insertDataOfPastEvents(array, container) {
+function insertDataInTable(array, container) {
     for (let i = 0; i < array.length; i++) {
         let tr = document.createElement('tr')
         for (property in array[i]) {
@@ -144,5 +149,16 @@ function insertDataOfPastEvents(array, container) {
         }
         container.appendChild(tr)
     }
+}
+
+function pastEventsStats(array, container) {
+    let pastEventsData=previousEvents(array)
+    let pastData= createPastData(pastEventsData)
+    insertDataInTable(pastData, container)
+}
+function futureEventsStats(array, container) {
+    let futureEventsData= upcomingEvents(array)
+    let futureData = createFutureData(futureEventsData)
+    insertDataInTable(futureData, container)
 }
 
