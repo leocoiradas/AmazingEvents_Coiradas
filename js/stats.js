@@ -7,16 +7,14 @@ async function obtainData() {
         .then(response => response.json())
         .then(data => {
             eventList = data.events
+            console.log(eventList);
             currentDate = data.currentDate
-            //insertDataOfPastEvents(pastEventsData(previousEvents(data.events)), pastData)
-            //drawTableOfAllEvents(allData)
-            //console.log(upcomingEventsData(upcomingEvents(eventList)));
-            //console.log(upcomingEvents(eventList));
             drawStats(eventList, allData, pastData, upcomingData)
 
         }).catch(error => console.log(error));
 };
 obtainData();
+//Función que unifica la creación de los datos en cada tabla
 function drawStats(array, container1, container2, container3) {
     drawTableOfAllEvents(container1)
     pastEventsStats(array, container2)
@@ -68,6 +66,7 @@ function biggestCapacity(arr) {
     let eventCapacity = arr.reduce((a, b) => a.capacity > b.capacity ? a : b).name;
     return eventCapacity;
 }
+//Dibuja los datos correspondientes de la tabla de todos los eventos (tabla 1)
 function drawTableOfAllEvents(container) {
     let allEventsArray = []
     let lowestAssistanceEvent = lowestAssistance(eventList)
@@ -88,6 +87,7 @@ function upcomingEvents(array) {
     futureEvents = array.filter(event => Date.parse(event.date) > Date.parse(currentDate));
     return futureEvents;
 }
+//Recibe un array y va filtrando los eventos por categoria. Devuelve un array de objetos donde cada objeto representa una categoría en el cual tiene como parametros: nombre de la categoria, ganancia total de dicha categoria, porcentaje de asistencia por cada categoria
 function createFutureData(array){
     let categoriesAuxi = upcomingEvents(array)
     console.log(categoriesAuxi);
@@ -96,7 +96,9 @@ function createFutureData(array){
     for (let i = 0; i < categoriesOfEvents.length; i++) {
         let collectionOfCategory = []
         let eventData = {}
+        console.log(array);
         collectionOfCategory = array.filter(element => element.category == categoriesOfEvents[i])
+
         eventData.category = categoriesOfEvents[i]
         eventData.revenue = collectionOfCategory.reduce((a, b) => a + (b.price * b.estimate), 0)
         let totalAssistance = collectionOfCategory.reduce((a, b) => a + b.estimate, 0)
@@ -107,10 +109,7 @@ function createFutureData(array){
     return reveniewArray
 }
 //A continuación se muestran las funciones para la tabla de eventos pasados
-//Nota: para los eventos pasados, crear 3 funciones:
-// 1 que me retorne un array con las categorias
-//Otro que segun la categoria, vaya acumulando las ganancias. ej: comida= 575757575 
-//El ultimo contiene los porcentajes de categoria de cada categoria
+//La sig. función recibe un array de eventos y devuelve otro array con las categorías de los eventos, usando el metodo Set se evitan categorias repetidas
 function categories(array) {
     let arrCategories = array.map(element => element.category)
     let arrayCategories = Array.from(new Set(arrCategories))
@@ -121,7 +120,7 @@ function previousEvents(array) {
     pastEvents = array.filter(event => Date.parse(event.date) < Date.parse(currentDate));
     return pastEvents;
 }
-//Nota: editar la siguiente funcion, agregarle un condicional para que funcione para eventos pasados y futuros: si es assistance, se ejecuta lo actual, si es estimate, ejecutar otras funciones con estimate
+//Recibe un array y va filtrando los eventos por categoria. Devuelve un array de objetos donde cada objeto representa una categoría en el cual tiene como parametros: nombre de la categoria, ganancia total de dicha categoria, porcentaje de asistencia por cada categoria
 function createPastData(array) {
     let categoriesAuxi = previousEvents(array)
     let categoriesOfEvents = categories(categoriesAuxi)
@@ -139,6 +138,7 @@ function createPastData(array) {
     }
 return reveniewArray
 }
+//recibe un array y contenedor. Va creando una tabla con los datos dentro del array
 function insertDataInTable(array, container) {
     for (let i = 0; i < array.length; i++) {
         let tr = document.createElement('tr')
@@ -150,7 +150,7 @@ function insertDataInTable(array, container) {
         container.appendChild(tr)
     }
 }
-
+//Las siguientes funciones reciben el array de eventos del archivo JSON. Por medio de las funciones previous y upcoming se crean los arrays con eventos pasados y futuros, luego se crean los arrays con los datos a ingresar en la tabla (createData) y se insertan en la misma por medio de la función insertDataInTable
 function pastEventsStats(array, container) {
     let pastEventsData=previousEvents(array)
     let pastData= createPastData(pastEventsData)
