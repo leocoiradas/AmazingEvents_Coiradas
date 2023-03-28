@@ -10,7 +10,7 @@ async function filterCards() {
                 let firstStep = filterByName(eventList, search.value);
                 let secondStep = categoryFilter(firstStep);
                 createEventCards(secondStep, cardsContainer);
-            }
+            };
             search.addEventListener('input', executeFilters)
             checksContainer.addEventListener('change', executeFilters)
             checkboxesCreation(eventList, checksContainer);

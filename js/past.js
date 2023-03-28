@@ -1,4 +1,4 @@
-import { previousEvents, checkboxesCreation, filterByName, categoryFilter, createEventCards} from "./functions.js";
+import { previousEvents, checkboxesCreation, filterByName, categoryFilter, createEventCards } from "./functions.js";
 let cardsContainer = document.getElementById('cards_box');
 let search = document.getElementById('search');
 async function obtainData() {

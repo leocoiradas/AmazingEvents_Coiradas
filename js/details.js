@@ -3,15 +3,15 @@ async function dynamicCards() {
     fetch("../data/amazing.json")
         .then(response => response.json())
         .then(data => {
-            const eventList = data.events
+            const eventList = data.events;
             const queryString = location.search;
             const params = new URLSearchParams(queryString);
             const id = params.get('id');
             const detailsCard = eventList.find(card => card._id == id);
-            createCardById(detailsCard,detailsCardContainer)
-        })
-}
-dynamicCards()
+            createCardById(detailsCard,detailsCardContainer);
+        });
+};
+dynamicCards();
 //La siguiente función se utiliza para alternar en las tarjetas que tengan las propiedades assistance o estimate
 //Recibe un elemento y pregunta si su propiedad es de tipo y valor undefined, caso positivo imprime un string y la propiedad Estimate. caso contrario hace lo mismo pero con assistance
 function assistanceOrEstimate(element) {
@@ -21,10 +21,7 @@ function assistanceOrEstimate(element) {
         return '<b>Assistance: </b>' + element.assistance;
     }
 };
-
 function createCardById(card, container) {
-
-
     container.innerHTML = `
             <div class="container-fluid d-flex flex-wrap p-3 m-5 card_container">
                 <div class="details-card gap-1 m-2">
