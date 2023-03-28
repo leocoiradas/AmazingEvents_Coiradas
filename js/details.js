@@ -12,15 +12,7 @@ async function dynamicCards() {
         });
 };
 dynamicCards();
-//La siguiente función se utiliza para alternar en las tarjetas que tengan las propiedades assistance o estimate
-//Recibe un elemento y pregunta si su propiedad es de tipo y valor undefined, caso positivo imprime un string y la propiedad Estimate. caso contrario hace lo mismo pero con assistance
-function assistanceOrEstimate(element) {
-    if (element.assistance === undefined) {
-        return '<b>Estimate: </b>' + element.estimate;
-    } else {
-        return '<b>Assistance: </b>' + element.assistance;
-    }
-};
+//La siguiente función es utilizada para la creación de tarjetas dinámicas
 function createCardById(card, container) {
     container.innerHTML = `
             <div class="container-fluid d-flex flex-wrap p-3 m-5 card_container">
@@ -35,7 +27,7 @@ function createCardById(card, container) {
                         <p class="card-text my-2"><b>Category: </b>${card.category}</p>
                         <p class="card-text my-2"><b>Place: </b>${card.place}</p>
                         <p class="card-text my-2"><b>Capacity: </b>${card.capacity} people</p>
-                        <p class="card-text my-2">${assistanceOrEstimate(card)} people</p>
+                        <p class="card-text my-2">${card.assistance ? '<b>Assistance: </b>' + card.assistance:'<b>Estimate: </b>' + card.estimate} people</p>
                         <p class="card-text my-2"><b>Price: </b>$${card.price}</p>
                         </div>
                 </div>
