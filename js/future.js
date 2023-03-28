@@ -7,8 +7,8 @@ async function obtainData() {
         .then(data => {
             const eventList = data.events
             const currentDate = data.currentDate
+            let futureEvents = upcomingEvents(eventList, currentDate)
             function executeFilters() {
-                let futureEvents = upcomingEvents(eventList, currentDate)
                 let firstStep = filterByName(futureEvents, search.value);
                 let secondStep = categoryFilter(firstStep);
                 createEventCards(secondStep, cardsContainer);
@@ -16,7 +16,7 @@ async function obtainData() {
             search.addEventListener('input', executeFilters);
             checksContainer.addEventListener('change', executeFilters);
             checkboxesCreation(eventList, checksContainer);
-            createEventCards(eventList, cardsContainer)
+            createEventCards(futureEvents, cardsContainer)
         }).catch(error => console.log(error));
 };
 obtainData();
