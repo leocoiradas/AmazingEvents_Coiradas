@@ -1,13 +1,13 @@
 //Toma un arreglo el cual filtra los elementos en base a si su fecha de realización es menor que la fecha actual 
-function previousEvents(array){
+function previousEvents(eventsArray, currentDate){
     let pastEvents = [];
-    pastEvents = array.filter(event=>Date.parse(event.date) < Date.parse(currentDate));
+    pastEvents = eventsArray.filter(event=>Date.parse(event.date) < Date.parse(currentDate));
     return pastEvents;
 }
 //Toma un arreglo y filtra los objetos pusheando en el array aquellos que no han sido realizados aún
-function upcomingEvents(array){
+function upcomingEvents(eventsArray, currentDate){
     let futureEvents=[];
-    futureEvents= array.filter(event=> Date.parse(event.date) > Date.parse(currentDate));
+    futureEvents= eventsArray.filter(event=> Date.parse(event.date) > Date.parse(currentDate));
     return futureEvents;
 }
 //Toma un array el cual copia en un array las categorias de los elementos mediante el map, luego se utiliza el método Set para eliminar 
@@ -49,28 +49,33 @@ function createEventCards(array, container){
     container.innerHTML= checkedCards;
 }
 //Funcion utilizada para filtrar por texto en la barra de busqueda y para que muestre aquellas tarjetas cuyo nombre coincida con los caracteres ingresados en el input
-function filterByName(array ,text){
-    console.log(array);
-    let categoriesFiltered = array.filter(elemento => elemento.name.toLowerCase().includes(text.toLowerCase()));
-    console.log(categoriesFiltered);
-    return categoriesFiltered;
+function filterByName(array, text){
+    let arrAuxi= Array.from(array)
+    let namesFiltered = arrAuxi.filter(elemento => elemento.name.toLowerCase().includes(text.toLowerCase()));
+    console.log(namesFiltered);
+    return namesFiltered;
 };
+
 function categoryFilter(arr){
-    console.log(arr);
+    //console.log(arr);
     let checkCategories= document.querySelectorAll("input[type='checkbox']")
-    console.log(checkCategories);
+   //console.log(checkCategories);
     let arrayCategories = Array.from(checkCategories);
+    console.log(arrayCategories);
     let arrayCategoriesChecked = arrayCategories.filter(check => check.checked);
     console.log(arrayCategoriesChecked);
-    let valuesOfCategoriesChecked = arrayCategoriesChecked.map(checkChecked => checkChecked.value.toLowerCase());
+    let valuesOfCategoriesChecked = arrayCategoriesChecked.map(checkChecked => checkChecked.value);
     console.log(valuesOfCategoriesChecked);
-    let categoriesFiltered = arr.filter(elemento=> valuesOfCategoriesChecked.includes(elemento.category.toLowerCase()));
+    //let categoriesFiltered = arr.filter(element=>element.category.toLowerCase().includes(valuesOfCategoriesChecked.toLowerCase()))
+    let categoriesFiltered = arr.filter(element => valuesOfCategoriesChecked.includes(element.category));
     console.log(categoriesFiltered);
     if (arrayCategoriesChecked.length > 0){
         return categoriesFiltered;
+    }else{
+        return arr;
     }
-    return arr;
 }
+
 
 //Las siguientes funciones sirven para aplicar todos los filtros a la vez
 //Nota: se crearon multiples funciones similares debido a que cuando se pasa un array como parametro a executeFilters el filtro falla en la linea 64, dejando el array.filter como una función inexistente
@@ -80,15 +85,19 @@ function categoryFilter(arr){
     let firstStep= filterByName(eventList, search.value);
     let secondStep= categoryFilter(firstStep);
     createEventCards(secondStep, cardsContainer);
-}*/
+}
 function executeFiltersPast(array){
     let cardsContainer = document.getElementById('cards_box');
     let search= document.getElementById('search');
     let firstStep= filterByName(previousEvents(array), search.value);
     let secondStep= categoryFilter(firstStep);
     createEventCards(secondStep, cardsContainer);
-}
+}*/
 
-//
+/*function executeFilters() {
+    let firstStep = filterByName(eventList, search.value);
+    let secondStep = categoryFilter(firstStep);
+    createEventCards(secondStep, cardsContainer);
+}*/
 
 export {previousEvents, upcomingEvents,checkboxesCreation, categoryFilter, filterByName, createEventCards};
