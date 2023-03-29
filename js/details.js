@@ -3,7 +3,7 @@ async function dynamicCards() {
     fetch("../data/amazing.json")
         .then(response => response.json())
         .then(data => {
-            const eventList = data.events;
+            eventList = data.events;
             const queryString = location.search;
             const params = new URLSearchParams(queryString);
             const id = params.get('id');
